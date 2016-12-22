@@ -10,4 +10,61 @@ There is a diff bw /app.css and app.css
 YelpCamp
 ________________
 
+Mongo Commands:
+
+use demo
+db.dogs.insert({name:"Rusty", breed: "Mutt"})
+show collections
+dogs
+ db.dogs.find()
+{ "_id" : ObjectId("585bf4bb753d9d94fc519773"), "name" : "Rusty", "breed" : "Mutt" }
+db.dogs.find({name:"Rusty"})
+{ "_id" : ObjectId("585bf4bb753d9d94fc519773"), "name" : "Rusty", "breed" : "Mutt" }
+db.dogs.update({name: "Lulu"}, {breed: "Labradoodle"})
+-- completely overwrites
+db.dogs.find()
+{ "_id" : ObjectId("585bf4bb753d9d94fc519773"), "name" : "Rusty", "breed" : "Mutt" }
+{ "_id" : ObjectId("585bf520753d9d94fc519774"), "name" : "Lucy", "breed" : "Mutt" }
+{ "_id" : ObjectId("585bf578753d9d94fc519775"), "breed" : "Labradoodle" } --> overwritten
+
+
+If we dont want it to be overwritten:
+db.dogs.update({name: "Rusty"},{$set:{name:"Tater", isCute: true}})
+db.dogs.remove({breed: "Labradoodle"})->remove
+
+
+Mongoose:
+
+Mongoose is a package which helps us interact with mongodb inside js files.
+it is basically a js layer on top of mongodb
+
+
+In Databases/cats.js
+
+var mongoose = require('mongoose');
+
+mongoose.connect("mongodb://localhost/cat_app");
+
+cat_app is the name of the db
+If it is not there it will get created
+
+var catSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    temperament: String
+});
+
+
+This is just a nice way of providing structure
+But it DOES NOT mean that we cant add new stuff or leave certain things off
+
+// takes the cat schema and compiles it into a model and stores in var Cat
+
+var Cat = mongoose.model("Cat", catSchema);
+
+
+
+
+
+
 
