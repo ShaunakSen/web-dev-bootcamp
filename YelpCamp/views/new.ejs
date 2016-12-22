@@ -1,0 +1,22 @@
+<% include partials/header.ejs %>
+
+<h2 class="text-center">Create a new CampGround</h2>
+<div class="container-fluid">
+    <div class="row ">
+        <div class="form-container">
+            <form action="/campgrounds" method="post">
+                <input type="text" name="name" class="form-control" placeholder="NAME">
+                <br>
+                <input type="text" name="image" class="form-control" placeholder="IMAGE URL">
+                <br>
+                <button type="submit" class="btn btn-lg btn-success btn-block">SUBMIT</button>
+                <br>
+            </form>
+            <a href="/campgrounds">Go Back</a>
+        </div>
+    </div>
+
+</div>
+
+
+<% include partials/footer.ejs %>
