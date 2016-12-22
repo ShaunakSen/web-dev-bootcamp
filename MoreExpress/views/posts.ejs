@@ -1,0 +1,10 @@
+<% include partials/header.ejs %>
+
+<h4>Hi.. Welcome to Posts page</h4>
+
+<ul>
+    <% posts.forEach(function (post) { %>
+    <li><%= post.title %> - <%= post.rating %></li>
+    <% }) %>
+</ul>
+<% include partials/footer.ejs %>
