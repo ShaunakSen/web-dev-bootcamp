@@ -67,13 +67,23 @@ var Cat = mongoose.model("Cat", catSchema);
 RESTful Routes
 ___________________
 
-INDEX Route:    /dogs      GET     Display a list of all dogs
-NEW Route:      /dogs/new  GET     Displays form to make a new dog
-CREATE Route:   /dogs      POST    Add new dog to db
-SHOW            /dogs/:id  GET     Shows info about one dog
-
+INDEX Route:    /dogs           GET     Display a list of all dogs
+NEW Route:      /dogs/new       GET     Displays form to make a new dog
+CREATE Route:   /dogs           POST    Add new dog to db
+SHOW            /dogs/:id       GET     Shows info about one dog
+EDIT            /dogs/:id/edit  GET     Show edit form for one dog
+UPDATE          /dogs/:id       PUT     Update a particular dog; then redirect
+DESTROY         /dogs/:id       DELETE  Delete a particular dog; then redirect
 
 REST - a mapping bw HTTP routes and CRUD
+
+Its a pattern of defining our routes
+
+Blog - our entity
+
+
+
+
 
 
 
