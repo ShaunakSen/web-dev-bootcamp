@@ -64,6 +64,19 @@ var Cat = mongoose.model("Cat", catSchema);
 
 
 
+RESTful Routes
+___________________
+
+INDEX Route:    /dogs      GET     Display a list of all dogs
+NEW Route:      /dogs/new  GET     Displays form to make a new dog
+CREATE Route:   /dogs      POST    Add new dog to db
+SHOW            /dogs/:id  GET     Shows info about one dog
+
+
+REST - a mapping bw HTTP routes and CRUD
+
+
+
 
 
 
