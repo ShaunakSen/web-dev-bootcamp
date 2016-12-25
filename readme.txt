@@ -82,6 +82,16 @@ Its a pattern of defining our routes
 Blog - our entity
 
 
+____________________
+
+<p><%= blog.body %></p>
+
+here if blog.body contains <strong>Hi</strong>
+it WILL NOT evaluate the HTML. it will display it as <strong>Hi</strong> only
+But if we have <p><%- blog.body %></p>
+Itt will evaluate HTML and sho hi in bold !!
+
+
 
 
 
