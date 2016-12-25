@@ -89,10 +89,39 @@ ____________________
 here if blog.body contains <strong>Hi</strong>
 it WILL NOT evaluate the HTML. it will display it as <strong>Hi</strong> only
 But if we have <p><%- blog.body %></p>
-Itt will evaluate HTML and sho hi in bold !!
+It will evaluate HTML and sho hi in bold !!
 
 
 
+______________________________________________________________
+
+
+HTML forms do not support PUT requests
+
+They ONLY support GET and POST
+
+So of we use PUT entire data of form ie name(key) and value pairs will be sent in query string
+
+So there is a workaround - Method Override
+
+So it is a simple package to install and we just tell Express to use it
+
+<form action="/blogs/<%= blog._id %>?_method=PUT" method="post" class="ui form">
+
+This will send a regular post req
+but it has in query string _method=PUT and it will be treated as a PUT request
+Similarly if _method=DELETE it will work as a delete request
+
+var methodOverride = require('method-override');
+app.use(methodOverride("_method"));
+
+Now our app will look for any url that has _method=XYZ
+and it will treat req as XYZ req
+
+______________
+findBiIdAndUpdate syntax:
+
+Blog.findByIdAndUpdate(id, newData, callback)
 
 
 
