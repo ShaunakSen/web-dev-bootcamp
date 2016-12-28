@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var ejs = require("ejs");
 var methodOverride = require('method-override');
+var expressSanitizer = require('express-sanitizer');
 
 var app = express();
 app.use(express.static("public"));
@@ -11,6 +12,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(methodOverride("_method"));
+
+// This should come after body parser
+app.use(expressSanitizer());
 
 // Set up mongoose
 mongoose.connect("mongodb://localhost/blog_app");
@@ -72,7 +76,11 @@ app.get("/blogs/new", function (req, res) {
 app.post("/blogs", function (req, res) {
     // CREATE BLOG
     //  THEN REDIRECT
-
+    // sanitizing the data
+    console.log(req.body);
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    console.log("===============");
+    console.log(req.body);
     Blog.create(req.body.blog, function (err, newBlog) {
         if (err) {
             res.render("new")
@@ -98,6 +106,7 @@ app.get("/blogs/:id", function (req, res) {
 // EDIT ROUTE
 
 app.get("/blogs/:id/edit", function (req, res) {
+    
     Blog.findById(req.params.id, function (err, foundBlog) {
         if (err) {
             res.redirect("/blogs");
@@ -111,6 +120,8 @@ app.get("/blogs/:id/edit", function (req, res) {
 // UPDATE
 
 app.put("/blogs/:id", function (req, res) {
+    // sanitizing the data
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (err, updatedBlog) {
         if (err) {
             res.redirect("/blogs");
@@ -120,6 +131,20 @@ app.put("/blogs/:id", function (req, res) {
     });
 });
 
+
+// DELETE
+
+app.delete("/blogs/:id", function (req, res) {
+
+    // Destroy bog
+    Blog.findByIdAndRemove(req.params.id, function (err) {
+        if(err){
+            res.redirect("/blogs");
+        } else {
+            res.redirect("/blogs");
+        }
+    });
+});
 
 app.listen(3000, function () {
     console.log("Blog server running....");

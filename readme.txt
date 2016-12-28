@@ -124,6 +124,64 @@ findBiIdAndUpdate syntax:
 Blog.findByIdAndUpdate(id, newData, callback)
 
 
+Now say we wanna display HTML formatting in the blog posts
+so we have to use <%-  %> tags
+now very easily users can hack into our sites. They can type in <script> tags into our forms
+and our app will evaluate them
+We need to stop this ie we need to sanitize the data
+This is done using express sanitizer
+
+var expressSanitizer = require('express-sanitizer');
+
+// This should come after body parser
+app.use(expressSanitizer());
+
+This has to be used in CREATE and UPDATE
+
+app.post("/blogs", function (req, res) {
+    // CREATE BLOG
+    //  THEN REDIRECT
+    // sanitizing the data
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    Blog.create(req.body.blog, function (err, newBlog) {
+        if (err) {
+            res.render("new")
+        } else {
+            res.redirect("/blogs");
+        }
+    });
+});
+
+{ blog:
+   { title: 'DEMO',
+     image: 'abcd',
+     body: '<h1>ok</h1>\r\n<script>alert("HACKED");</script>' } }
+===============
+{ blog: { title: 'DEMO', image: 'abcd', body: '<h1>ok</h1>\r\n' } }
+
+
+similarly before we update we need to sanitize
+
+
+app.put("/blogs/:id", function (req, res) {
+    // sanitizing the data
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (err, updatedBlog) {
+        if (err) {
+            res.redirect("/blogs");
+        } else {
+            res.redirect("/blogs/" + req.params.id);
+        }
+    });
+});
+
+
+
+req.body.blog.body = req.sanitize(req.body.blog.body);
+This code can be put in a Middleware
+
+We will do it later
+
 
 
 

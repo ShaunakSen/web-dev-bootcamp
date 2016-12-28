@@ -12,11 +12,16 @@
                 <a class="header"><%= blog.title %></a>
                 <div class="ui divider"></div>
                 <div class="description">
-                    <p><%= blog.body %></p>
+                    <p><%- blog.body %></p>
                 </div>
                 <div class="extra">
                     <%= blog.created.toDateString() %>
                 </div>
+                <br>
+                <a href="/blogs/<%= blog._id %>/edit" class="ui blue button">Edit</a>
+                <form style="display: inline" action="/blogs/<%= blog._id %>?_method=DELETE" method="post">
+                    <button class="ui red button">Delete</button>
+                </form>
             </div>
         </div>
 
