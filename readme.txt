@@ -214,6 +214,129 @@ Let us assume we have user ad posts
 
 mkdir Associations
 
+Follow code in embed.js
+_______________________________
+
+
+By using Object References
+__________________________
+
+
+Instead of storing all posts for a user in user collection we simply store reference ie the ids
+to the posts
+
+var userSchema = new mongoose.Schema({
+    email: String,
+    name: String,
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+    }]
+});
+
+postModel.create({
+    title: "hungry",
+    content: "feeling hungry"
+}, function (err, post) {
+    // find a user
+    User.findOne({email: "mini@blaah.com"}, function (err, foundUser) {
+        if (err) {
+            console.log(err);
+        } else {
+            // add the post into the user's posts
+            foundUser.posts.push(post);
+            foundUser.save(function (err, data) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(data);
+                }
+            });
+        }
+    });
+});
+
+The data returned will look like:
+
+{ _id: 586419159da4884625b63de5,
+  email: 'mini@blaah.com',
+  name: 'Little mini',
+  __v: 1,
+  posts: [ 58641ea460612548502020cf ] }
+
+
+Notice posts only contains the id
+
+When we add yet another post:
+
+{ _id: 586419159da4884625b63de5,
+  email: 'mini@blaah.com',
+  name: 'Little mini',
+  __v: 2,
+  posts: [ 58641ea460612548502020cf, 58641f6d4273e3489821222d ] }
+
+
+How to use this id to find correct post?
+
+// Find user and find all posts by that user
+// populate("posts") populates the field posts by object ids
+
+
+User.findOne({email: "mini@blaah.com"}).populate("posts").exec(function (err, user) {
+    if(err){
+        console.log(err)
+    }else {
+        console.log(user);
+    }
+});
+
+Output
+________________
+
+
+{ _id: 586419159da4884625b63de5,
+  email: 'mini@blaah.com',
+  name: 'Little mini',
+  __v: 2,
+  posts:
+   [ { _id: 58641ea460612548502020cf,
+       title: 'hungry',
+       content: 'feeling hungry',
+       __v: 0 },
+     { _id: 58641f6d4273e3489821222d,
+       title: 'hungry again !!',
+       content: 'feeling hungry again..',
+       __v: 0 } ] }
+
+When to use embed and when to use references?
+
+It depends.. on the app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
