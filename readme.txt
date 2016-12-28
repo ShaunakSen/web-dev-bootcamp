@@ -183,6 +183,41 @@ This code can be put in a Middleware
 We will do it later
 
 
+Data Associations
+____________________________
+
+They allow us to have multiple collections in our db that are related to one another
+
+Association Types:
+one:one
+one:many
+many:many
+
+One:one
+
+Employee and title
+
+One:Many
+
+One user can have multiple photos
+
+Many:Many
+
+Students and courses
+Authors an Books
+
+
+One to many association bw 2 mongoose models by Embedding Data
+___________________________________________________________________________
+
+Let us assume we have user ad posts
+
+mkdir Associations
+
+
+
+
+
 
 
 
