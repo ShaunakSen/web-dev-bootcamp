@@ -318,8 +318,96 @@ __________________
 helps us clean up our code; makes it more modular
 
 
+YelpCamp
+_____________________
+
+Creating seeds.js
 
 
+var mongoose = require('mongoose');
+
+var CampGround = require('./models/capgrounds');
+
+
+// Clear everything
+
+function seedDB() {
+
+    CampGround.remove({}, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Cleared Camp Grounds...");
+        }
+    });
+}
+
+module.exports = seedDB;
+
+
+This clears our db every time server starts
+
+Modifying seeds.js to add in a set of data
+
+
+function seedDB() {
+
+    // Remove camp grounds
+    CampGround.remove({}, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Cleared Camp Grounds...");
+        }
+    });
+
+    // Add in some camp grounds
+
+    data.forEach(function (seed) {
+        CampGround.create(seed, function (err, data) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Added a Camp Grounds...");
+            }
+        })
+    });
+
+    // Add a few comments
+}
+
+But here it might so happen that first camp grounds are added and then they are removed
+
+So we need to put the add camp ground code in callback
+
+function seedDB() {
+
+    // Remove camp grounds
+    CampGround.remove({}, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Cleared Camp Grounds...");
+            // Add in some camp grounds
+
+            data.forEach(function (seed) {
+                CampGround.create(seed, function (err, data) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log("Added a Camp Grounds...");
+                    }
+                })
+            });
+        }
+    });
+    // Add a few comments
+}
 
 
 
