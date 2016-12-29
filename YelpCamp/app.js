@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var CampGround = require('./models/capgrounds');
 
 var app = express();
 
@@ -12,14 +13,7 @@ app.use(express.static("public"));
 
 // Setting up our schema
 
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
 
-
-var CampGround = mongoose.model("Campground", campgroundSchema);
 
 /*CampGround.create({
  name: "Granite Hill",

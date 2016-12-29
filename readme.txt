@@ -312,6 +312,12 @@ When to use embed and when to use references?
 
 It depends.. on the app
 
+module.exports
+__________________
+
+helps us clean up our code; makes it more modular
+
+
 
 
 

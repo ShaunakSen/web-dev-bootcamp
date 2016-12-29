@@ -1,38 +1,18 @@
 var mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/blog_demo_2");
 
-
-// POST MODEL
-
-var postSchema = new mongoose.Schema({
-    title: String,
-    content: String
-});
-
-var postModel = mongoose.model("Post", postSchema);
+var postModel = require('./models/posts');
+var User = require('./models/user');
 
 
-// USER MODEL
 
-var userSchema = new mongoose.Schema({
-    email: String,
-    name: String,
-    posts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Post"
-    }]
-});
 
-var User = mongoose.model("User", userSchema);
-
-/*
- User.create({
+ /*User.create({
  email: "mini@blaah.com",
  name: "Little mini"
  });
- */
 
-/*postModel.create({
+postModel.create({
  title: "sleepy",
  content: "feeling sleepy"
  }, function (err, post) {
@@ -65,9 +45,8 @@ var User = mongoose.model("User", userSchema);
 
 // Add another post
 
-/*
-postModel.create({
-    title: "hungry again !!",
+/*postModel.create({
+    title: "hungry again pt 2 !!",
     content: "feeling hungry again.."
 }, function (err, post) {
     // find a user
@@ -86,8 +65,7 @@ postModel.create({
             });
         }
     });
-});
-*/
+});*/
 
 // Find user and find all posts by that user
 // populate("posts") populates the field posts by object ids
