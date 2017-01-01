@@ -1,5 +1,5 @@
 body{
-    font-family: monospace;
+    font-family: "Ubuntu", sans-serif;
 }
 
 blockquote{
@@ -9,4 +9,12 @@ blockquote{
 .form-container{
     width: 30%;
     margin: 20px auto;
+}
+
+.thumbnail{
+    padding: 0;
+}
+
+.thumbnail img{
+    width: 100%;
 }
