@@ -410,6 +410,123 @@ function seedDB() {
 }
 
 
+Finally seedDB():
+
+
+function seedDB() {
+
+    // Remove camp grounds
+    CampGround.remove({}, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Cleared Camp Grounds...");
+            // Add in some camp grounds
+
+            data.forEach(function (seed) {
+                CampGround.create(seed, function (err, campground) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log("Added a Camp Grounds...");
+                        // create a comment
+                        Comment.create({
+                            text: "Awesome place.. But very chilly!!",
+                            author: "Mini"
+                        }, function (err, comment) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                campground.comments.push(comment);
+                                campground.save(function (err, data) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log("created new comment");
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
+    // Add a few comments
+}
+
+
+We are removing camp grounds and then creating a CG and adding same comment to each CG
+Note the callback nesting
+
+Also we dont have Comments Module defined
+
+This is Error Driven Development!!
+
+We need to add Comments Module now.........
+
+Create models/comments.js
+
+var mongoose = require('mongoose');
+
+var commentSchema = mongoose.Schema({
+    text: String,
+    author: String
+});
+
+var Comment = mongoose.model('Comment', commentSchema);
+
+module.exports = Comment;
+
+In campgrounds model:
+
+var campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String,
+    description: String,
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ]
+});
+
+Thus we have done the association between CG and comments
+
+
+A campground collection looks like:
+
+{
+        "_id" : ObjectId("58656daf57245a17c8686a50"),
+        "name" : "Cloud's Rest",
+        "image" : "https://images.pexels.com/photos/128956/pexels-photo-128956.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "description" : "Cloudy and smoggy and cold",
+        "comments" : [
+                ObjectId("58656daf57245a17c8686a53")
+        ],
+        "__v" : 1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var CampGround = require('./models/capgrounds');
-var Comment = require('./models/comment');
+var Comment = require('./models/comments');
 
 
 var data = [
@@ -25,7 +25,6 @@ var data = [
 // Clear everything
 
 function seedDB() {
-
     // Remove camp grounds
     CampGround.remove({}, function (err) {
         if (err) {
@@ -33,35 +32,45 @@ function seedDB() {
         }
         else {
             console.log("Cleared Camp Grounds...");
-            // Add in some camp grounds
 
-            data.forEach(function (seed) {
-                CampGround.create(seed, function (err, campground) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        console.log("Added a Camp Grounds...");
-                        // create a comment
-                        Comment.create({
-                            text: "Awesome place.. But very chilly!!",
-                            author: "Mini"
-                        }, function (err, comment) {
+            // Now clear the comments
+            Comment.remove({}, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Removed comments...");
+
+                    // Add in some camp grounds
+
+                    data.forEach(function (seed) {
+                        CampGround.create(seed, function (err, campground) {
                             if (err) {
                                 console.log(err);
-                            } else {
-                                campground.comments.push(comment);
-                                campground.save(function (err, data) {
+                            }
+                            else {
+                                console.log("Added a Camp Grounds...");
+                                // create a comment
+                                Comment.create({
+                                    text: "Awesome place.. But very chilly!!",
+                                    author: "Mini"
+                                }, function (err, comment) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log("created new comment");
+                                        campground.comments.push(comment);
+                                        campground.save(function (err, data) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                console.log("created new comment");
+                                            }
+                                        });
                                     }
                                 });
                             }
                         });
-                    }
-                });
+                    });
+                }
             });
         }
     });

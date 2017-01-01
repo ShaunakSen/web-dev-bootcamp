@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var CampGround = require('./models/capgrounds');
 var seedDB = require('./seeds');
 
-seedDB();
+
 
 var app = express();
 
@@ -13,6 +13,8 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static("public"));
+
+seedDB();
 
 // Setting up our schema
 
@@ -76,10 +78,11 @@ app.get("/campgrounds/new", function (req, res) {
 // SHOW
 app.get("/campgrounds/:id", function (req, res) {
     var id = req.params.id;
-    CampGround.findById(id, function (err, foundCampground) {
+    CampGround.findById(id).populate("comments").exec(function (err, foundCampground) {
         if (err) {
             console.log(err);
         } else {
+            console.log(foundCampground);
             res.render("show", {campground: foundCampground});
         }
     });
