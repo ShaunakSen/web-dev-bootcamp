@@ -510,6 +510,19 @@ A campground collection looks like:
         "__v" : 1
 }
 
+_______________________
+
+
+Nested Routes:
+
+For comments we have routes like:
+
+GET campgrounds/:id/comments/new -> Render form to Create comment
+POST campgrounds/:id/comments/new -> Post new comment
+
+
+
+
 
 
 

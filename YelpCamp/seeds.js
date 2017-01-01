@@ -24,6 +24,8 @@ var data = [
 
 // Clear everything
 
+// CALLBACK HELL
+
 function seedDB() {
     // Remove camp grounds
     CampGround.remove({}, function (err) {

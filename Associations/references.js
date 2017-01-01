@@ -45,7 +45,7 @@ postModel.create({
 
 // Add another post
 
-/*postModel.create({
+postModel.create({
     title: "hungry again pt 2 !!",
     content: "feeling hungry again.."
 }, function (err, post) {
@@ -65,7 +65,7 @@ postModel.create({
             });
         }
     });
-});*/
+});
 
 // Find user and find all posts by that user
 // populate("posts") populates the field posts by object ids
