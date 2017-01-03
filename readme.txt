@@ -520,6 +520,17 @@ For comments we have routes like:
 GET campgrounds/:id/comments/new -> Render form to Create comment
 POST campgrounds/:id/comments/new -> Post new comment
 
+User Auth
+__________________
+
+
+
+
+
+
+
+
+
 
 
 
