@@ -523,6 +523,88 @@ POST campgrounds/:id/comments/new -> Post new comment
 User Auth
 __________________
 
+Dependencies:
+"dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.7.6",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0"
+}
+
+
+Set up a basic app.js server
+
+Then we create a model user
+
+var mongoose = require('mongoose');
+
+
+var UserSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
+
+module.exports = mongoose.model("User", UserSchema);
+
+
+We now add passport to this model
+
+
+var mongoose = require('mongoose');
+var passportLocalMongoose = require('passport-local-mongoose');
+
+
+var UserSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
+
+// adds a bunch of methods taht come with passportLocalMongoose and add it to UserSchema
+
+UserSchema.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model("User", UserSchema);
+
+
+Configurations:
+
+app.use(expressSession({
+    secret: "little mini is very busy",
+    resave: false,
+    saveUninitialized: false
+}));
+
+// tell express to use passport
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// These 2 methods are very important
+// serialize: encoding data and putting it back in the session
+// deserialize: taking data from session and decoding it
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+User.deserializeUser() : does User have this method??
+
+Note: in user.js we had UserSchema.plugin(passportLocalMongoose);
+
+So these methods are added here
+
+
+
+
+
+
+
 
 
 
