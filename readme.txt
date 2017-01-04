@@ -599,6 +599,25 @@ Note: in user.js we had UserSchema.plugin(passportLocalMongoose);
 
 So these methods are added here
 
+app.post("/register", function (req, res) {
+    User.register(new User({username: req.body.username}), req.body.password, function (err, user) {
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+
+        console.log(user);
+        passport.authenticate("local")(req, res, function () {
+            res.redirect("/secret");
+        });
+    });
+});
+
+
+User.register() add user ti our db.. passwords are stored in salt and hash format
+
+
+
 
 
 
