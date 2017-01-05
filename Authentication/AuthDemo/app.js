@@ -35,6 +35,7 @@ app.use(passport.session());
 // serialize: encoding data and putting it back in the session
 // deserialize: taking data from session and decoding it
 
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -48,7 +49,7 @@ app.get("/", function (req, res) {
     res.render("home");
 });
 
-app.get("/secret", function (req, res) {
+app.get("/secret", isLoggedIn, function (req, res) {
     res.render("secret");
 });
 
@@ -60,7 +61,7 @@ app.get("/register", function (req, res) {
 
 app.post("/register", function (req, res) {
     User.register(new User({username: req.body.username}), req.body.password, function (err, user) {
-        if(err){
+        if (err) {
             console.log(err);
             return res.render("register");
         }
@@ -73,6 +74,41 @@ app.post("/register", function (req, res) {
     });
 });
 
+// handling user login
+
+app.get("/login", function (req, res) {
+    res.render("login");
+});
+
+// Middleware: code that runs bw start of a route and final end of the route handler
+
+// passport.authenticate() takes username and password from req.body
+// it compares it with the value in db
+// and then redirects accordingly
+// all this is done automatically
+
+
+app.post("/login", passport.authenticate('local', {
+    successRedirect: "/secret",
+    failureRedirect: "/login"
+}), function (req, res) {
+});
+
+// logout
+
+app.get("/logout", function (req, res) {
+    // passport here destroys all the user data in the session
+    req.logOut();
+    res.redirect("/");
+});
+
+function isLoggedIn(req, res, next) {
+    // next: next thing that needs to be called
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 
 app.listen(3000, function () {

@@ -617,6 +617,49 @@ app.post("/register", function (req, res) {
 User.register() add user ti our db.. passwords are stored in salt and hash format
 
 
+// handling user login
+
+app.get("/login", function (req, res) {
+    res.render("login");
+});
+
+// Middleware
+
+app.post("/login", passport.authenticate('local', {
+    successRedirect: "/secret",
+    failureRedirect: "/login"
+}), function (req, res) {});
+
+
+Creating a middleware:
+
+function isLoggedIn(req, res, next) {
+    // next: next thing that needs to be called
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
+
+Apply this middleware in the secret route:
+
+app.get("/secret", isLoggedIn, function (req, res) {
+    res.render("secret");
+});
+
+How does this work?
+
+when we issue a GET req to /secret. isLoggedIn() runs
+If user is authenticated next() runs
+here next refers to the code just after the middleware where it is applied i.e
+
+function (req, res) {
+    res.render("secret");
+}
+
+if user is NOT authenticated we redirect them and dont call next() this time
+
+
 
 
 
