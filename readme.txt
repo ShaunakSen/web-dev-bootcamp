@@ -659,6 +659,12 @@ function (req, res) {
 
 if user is NOT authenticated we redirect them and dont call next() this time
 
+________________________
+
+
+Adding auth to yelp_camp app
+Note: passport-local-mongoose takes care of duplicate username for us
+
 
 
 
