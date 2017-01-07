@@ -692,6 +692,48 @@ app.get("/campgrounds/:id/comments/new", isLoggedIn, function (req, res) {
 });
 
 
+Now we want to make nav bar more functional
+________________________________________________
+
+ie when user is logged in we want to show only log out link etc
+How to do this?
+
+the user info is present in req.user
+
+The user data is present in this after we log in
+{ _id: 586eaf7c994172286bd3c268,
+  username: 'shaunak1105',
+  __v: 0 }
+
+This is done by passport
+
+If we dont log in req.user will be undefined
+
+so we can use this logic to adjust the nav bar accordingly
+
+app.get("/campgrounds", function (req, res) {
+    // res.render("campgrounds", {campgrounds: campgrounds});
+
+    // user info
+    console.log(req.user);
+    CampGround.find({}, function (err, campgrounds) {
+        if (err) {
+            console.log("Error...", err)
+        } else {
+            res.render("campgrounds/index", {campgrounds: campgrounds, currentUser: req.user});
+        }
+    })
+});
+
+
+
+
+
+
+
+
+
+
 
 
 

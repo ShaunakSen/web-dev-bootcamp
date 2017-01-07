@@ -39,17 +39,27 @@ passport.deserializeUser(User.deserializeUser());
 
 app.set("view engine", "ejs");
 
+// middleware to pass data to templates
+
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 app.get("/", function (req, res) {
     res.render("landing");
 });
 
 app.get("/campgrounds", function (req, res) {
     // res.render("campgrounds", {campgrounds: campgrounds});
+
+    // user info
+    console.log(req.user);
     CampGround.find({}, function (err, campgrounds) {
         if (err) {
             console.log("Error...", err)
         } else {
-            res.render("campgrounds/index", {campgrounds: campgrounds})
+            res.render("campgrounds/index", {campgrounds: campgrounds});
         }
     })
 });
