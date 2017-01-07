@@ -727,6 +727,15 @@ app.get("/campgrounds", function (req, res) {
 
 
 
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+We use this middleware to add data to routes
+
+
+
 
 
 
