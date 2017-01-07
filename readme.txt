@@ -665,6 +665,33 @@ ________________________
 Adding auth to yelp_camp app
 Note: passport-local-mongoose takes care of duplicate username for us
 
+Allow user to post comments only when logged in
+______________________________________________
+
+// middleware
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        res.redirect("/login");
+    }
+}
+
+
+Applying this middleware:
+
+app.get("/campgrounds/:id/comments/new", isLoggedIn, function (req, res) {
+    CampGround.findById(req.params.id, function (err, campground) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("comments/new", {campground: campground});
+        }
+    });
+});
+
+
 
 
 

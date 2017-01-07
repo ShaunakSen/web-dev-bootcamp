@@ -94,7 +94,7 @@ app.get("/campgrounds/:id", function (req, res) {
 // =================================
 // Comments Routes
 
-app.get("/campgrounds/:id/comments/new", function (req, res) {
+app.get("/campgrounds/:id/comments/new", isLoggedIn, function (req, res) {
     CampGround.findById(req.params.id, function (err, campground) {
         if (err) {
             console.log(err);
@@ -104,7 +104,7 @@ app.get("/campgrounds/:id/comments/new", function (req, res) {
     });
 });
 
-app.post("/campgrounds/:id/comments", function (req, res) {
+app.post("/campgrounds/:id/comments", isLoggedIn, function (req, res) {
     // lookup campground
     CampGround.findById(req.params.id, function (err, campground) {
         if (err) {
@@ -157,6 +157,37 @@ app.post("/register", function (req, res) {
         });
     });
 });
+
+// SHOW LOGIN FORM
+app.get("/login", function (req, res) {
+    res.render("login");
+});
+
+// handle login logic
+
+// the middleware uses authenticate method which authenticates user..if it works it redirects somewhere else somewhere else
+
+app.post("/login", passport.authenticate("local",
+    {successRedirect: "/campgrounds", failureRedirect: "/login"}), function (req, res) {
+});
+
+// logout
+
+app.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
+// middleware
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        res.redirect("/login");
+    }
+}
+
 
 app.listen(3000, function () {
     console.log("YelpCamp has Started!!");
