@@ -57,7 +57,7 @@ router.get("/campgrounds/:id", function (req, res) {
 
 // EDIT CAMPGROUND
 
-router.get("/campgrounds/:id/edit", function (req, res) {
+router.get("/campgrounds/:id/edit", checkCampgroundOwnership, function (req, res) {
     CampGround.findById(req.params.id, function (err, foundCampGround) {
         if (err) {
             res.redirect("/campgrounds");
@@ -72,7 +72,7 @@ router.get("/campgrounds/:id/edit", function (req, res) {
 router.put("/campgrounds/:id", function (req, res) {
     // find and update campground
     CampGround.findByIdAndUpdate(req.params.id, req.body.campground, function (err, updatedCampGround) {
-        if(err){
+        if (err) {
             redirect("/campgrounds");
         } else {
             // redirect to show page
@@ -85,7 +85,7 @@ router.put("/campgrounds/:id", function (req, res) {
 
 router.delete("/campgrounds/:id", function (req, res) {
     CampGround.findByIdAndRemove(req.params.id, function (err) {
-        if(err){
+        if (err) {
             console.log(err);
             res.redirect("/campgrounds");
         } else {
@@ -96,6 +96,33 @@ router.delete("/campgrounds/:id", function (req, res) {
 
 
 // middleware
+
+function checkCampgroundOwnership(req, res, next) {
+    // is user logged in
+
+    if (req.isAuthenticated()) {
+
+        CampGround.findById(req.params.id, function (err, foundCampGround) {
+            if (err) {
+                res.redirect("back");
+            } else {
+                // does user own the campground??
+                // NOTE: foundCampGround.author.id is Object and req.user._id is a String
+                // So solution is to use method equals() on the Object
+
+                if (foundCampGround.author.id.equals(req.user._id)) {
+                    // all ok
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
+
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {

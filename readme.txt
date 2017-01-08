@@ -759,6 +759,90 @@ var commentSchema = mongoose.Schema({
 });
 
 
+Only a user who submitted the campground can delete/edit that campground
+_________________________________________________________________________
+
+this is known as Authorization
+
+Authentication: figuring out if someone is who they say they are
+Authorization: once u know who someone is u figure out what they are allowed to do
+ie their permissions
+
+router.get("/campgrounds/:id/edit", function (req, res) {
+
+    // is user logged in
+
+    if (req.isAuthenticated()) {
+
+        CampGround.findById(req.params.id, function (err, foundCampGround) {
+            if (err) {
+                res.redirect("/campgrounds");
+            } else {
+                // does user own the campground??
+                // NOTE: foundCampGround.author.id is Object and req.user._id is a String
+                // So solution is to use method equals() on the Object
+
+                if (foundCampGround.author.id.equals(req.user._id)) {
+                    // all ok
+                    res.render("campgrounds/edit", {campground: foundCampGround});
+                } else {
+                    res.send("You do not have permission to do that!");
+                }
+            }
+        });
+    } else {
+        console.log("You need to be logged in");
+        res.send("You need to be logged in");
+    }
+});
+
+
+We want to use this code on many routes
+So we will make it into a middleware
+
+res.redirect("back") : takes user to prev page they were on
+
+
+Middleware:
+
+function checkCampgroundOwnership(req, res, next) {
+    // is user logged in
+
+    if (req.isAuthenticated()) {
+
+        CampGround.findById(req.params.id, function (err, foundCampGround) {
+            if (err) {
+                res.redirect("back");
+            } else {
+                // does user own the campground??
+                // NOTE: foundCampGround.author.id is Object and req.user._id is a String
+                // So solution is to use method equals() on the Object
+
+                if (foundCampGround.author.id.equals(req.user._id)) {
+                    // all ok
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
