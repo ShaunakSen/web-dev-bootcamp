@@ -735,6 +735,35 @@ app.use(function (req, res, next) {
 We use this middleware to add data to routes
 
 
+To associate comments with the users
+____________________________________________
+
+In our comments model we have:
+
+var commentSchema = mongoose.Schema({
+    text: String,
+    author: String
+});
+
+in author we cant simply store entire user data bcoz user data contains salt and hash also
+
+var commentSchema = mongoose.Schema({
+    text: String,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    }
+});
+
+
+
+
+
+
+
 
 
 

@@ -29,7 +29,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
-seedDB();
+
+// seed the database
+// seedDB();
 
 app.use(expressSession({
     secret: "Little mini is very busy",

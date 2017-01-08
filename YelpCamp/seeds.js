@@ -49,7 +49,7 @@ function seedDB() {
 
                     // Add in some camp grounds
 
-                    data.forEach(function (seed) {
+                    /*data.forEach(function (seed) {
                         CampGround.create(seed, function (err, campground) {
                             if (err) {
                                 console.log(err);
@@ -76,7 +76,7 @@ function seedDB() {
                                 });
                             }
                         });
-                    });
+                    });*/
                 }
             });
         }
