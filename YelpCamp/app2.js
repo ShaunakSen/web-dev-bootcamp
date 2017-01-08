@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var expressSession = require('express-session');
+var methodOverride = require('method-override');
 var CampGround = require('./models/capgrounds');
 var Comment = require('./models/comments');
 var User = require('./models/user');
@@ -29,6 +30,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
+
+app.use(methodOverride("_method"));
+
 
 // seed the database
 // seedDB();
