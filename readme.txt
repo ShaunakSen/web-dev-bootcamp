@@ -831,6 +831,35 @@ function checkCampgroundOwnership(req, res, next) {
     }
 }
 
+Showing and hiding edit and delete buttons:
+
+<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Edit</a>
+    <form id="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="post">
+        <button class="btn btn-danger">Delete</button>
+    </form>
+<% } %>
+
+currentUser is defined in app2.js
+
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+Now we want to add functionality to edit and delete the comments:
+_____________________________________________________________________
+
+the route will be : /campgrounds/:id/comments/comment_id/edit
+
+Go to comments.js
+
+
+
+
+
+
+
 
 
 
