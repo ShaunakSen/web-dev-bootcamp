@@ -880,6 +880,54 @@ router.put("/campgrounds/:id/comments/:comment_id", function (req, res) {
 
 Deleting Comments:
 
+router.delete("/campgrounds/:id/comments/:comment_id", function (req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function (err) {
+        if (err) {
+            res.redirect("back");
+        } else {
+            // redirect back to show page
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
+
+Finally yo check authorization:
+
+function checkCampgroundOwnership(req, res, next) {
+    // is user logged in
+
+    if (req.isAuthenticated()) {
+
+        CampGround.findById(req.params.id, function (err, foundCampGround) {
+            if (err) {
+                res.redirect("back");
+            } else {
+                // does user own the campground??
+                // NOTE: foundCampGround.author.id is Object and req.user._id is a String
+                // So solution is to use method equals() on the Object
+
+                if (foundCampGround.author.id.equals(req.user._id)) {
+                    // all ok
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
+
+
+Refactoring middlewares:
+_____________________________
+
+mkdir middleware
+create file index.js
+
+
 
 
 
