@@ -928,6 +928,70 @@ mkdir middleware
 create file index.js
 
 
+Flash Messages
+_________________
+
+we will do this using package called connect-flash
+we will also add bootstrap alerts to the header
+
+Our header.ejs file will display the message
+
+
+In middleware/index.js
+
+middlewareObject.isLoggedIn = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect("/login");
+    }
+};
+
+
+Before we redirect we need to set the flash message
+
+// flash message
+req.flash("success", "Please log in first!");
+
+This gives us a way of accessing flash msg on the next request
+
+Now we need to handle the flash in /login
+
+In routes/index.js
+
+router.get("/login", function (req, res) {
+    res.render("login", {message: req.flash("error")});
+});
+
+In view login.ejs
+
+<h1><%= message %></h1>
+
+Now we would like to include this error or success msgs in header file
+
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.message = req.flash("error");
+    next();
+});
+
+
+In header.ejs:
+
+<h1><%= message %></h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
