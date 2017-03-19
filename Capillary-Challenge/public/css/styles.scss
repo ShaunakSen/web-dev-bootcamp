@@ -139,6 +139,7 @@ a:hover {
 }
 
 .games-details-card {
+  margin-top: 20px;
   font-family: $font2;
   border: 3px solid $utility3;
   .emphasis-text {
@@ -157,8 +158,14 @@ a:hover {
   }
   .game-score{
     padding: 10px 10px;
+    .emphasis-text{
+      color: $utility2;
+    }
     p{
-      color: $utility1;
+      color: $utility2;
+    }
+    .progress-bar{
+      background-color: $utility2;
     }
   }
 }

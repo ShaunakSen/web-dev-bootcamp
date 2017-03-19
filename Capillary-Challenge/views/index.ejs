@@ -7,19 +7,21 @@
         </div>
     </div>
     <br><br>
+
+
     <div class="row">
-        <div class="col-sm-4 games-details-card">
+        <div class="col-sm-4 col-sm-offset-1 games-details-card" ng-repeat="game in gamesData">
             <div class="row title-header">
                 <div class="col-xs-12">
-                    <h4>Title</h4>
+                    <h4>{{game.title}}</h4>
                 </div>
             </div>
             <div class="row games-details">
                 <div class="col-xs-12">
-                    <p><span class="emphasis-text">Genre</span><span class="bold-text">: PlayStation</span></p>
+                    <p><span class="emphasis-text">Genre</span><span class="bold-text">: {{game.genre}}</span></p>
                 </div>
                 <div class="col-xs-12">
-                    <p><span class="emphasis-text">Platform</span><span class="bold-text">: PlayStation</span></p>
+                    <p><span class="emphasis-text">Platform</span><span class="bold-text">: {{game.platform}}</span></p>
                 </div>
             </div>
 
@@ -29,17 +31,15 @@
                 </div>
                 <div class="col-xs-10">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                             aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            <span class="sr-only">70% Complete</span>
+                        <div class="progress-bar" id="progress-bar-{{$index}}" role="progressbar" aria-valuenow="70"
+                             aria-valuemin="0" aria-valuemax="100" style="width:{{game.score*10}}%">
+                            <span class="sr-only">{{game.score*10}}% rating</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-10"><p class="bold-text">(70% i.e 7 out of 10 stars)</p></div>
+                <div class="col-xs-10"><p class="bold-text">({{game.score*10}}% i.e {{game.score}} out of 10 stars)</p></div>
             </div>
         </div>
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4"></div>
     </div>
     <br><br><br><br><br>
 

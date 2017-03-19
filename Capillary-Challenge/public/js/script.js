@@ -7,6 +7,7 @@ myApp.config(function ($httpProvider) {
 myApp.controller('MainController', ['$scope', '$window', '$http', function ($scope, $window, $http) {
     
     $scope.gamesData = $window.gameInfo;
+    
 
     console.log("Games data in angular is", $scope.gamesData)
 }]);
