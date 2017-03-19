@@ -1,0 +1,167 @@
+//Color Schemes
+
+$lighter: #e9e2f5;
+$light: #d5cee1;
+
+
+$dark: #4e4d4f;
+$darker: #343435;
+
+$utility1: #5660ff;
+$utility2: #7bcb5d;
+$utility3: #7F2CCB;
+
+//Font
+
+$font: 'Ubuntu', sans-serif;
+$font2: 'Montserrat', sans-serif;
+
+@mixin generateButton($color, $borderWidth: 3px) {
+  font-family: $font2;
+  font-size: 1.2em;
+  color: $light;
+  cursor: pointer;
+
+  i {
+    color: $color;
+  }
+  span {
+    margin-left: 3px;
+    border-bottom: $borderWidth solid $color;
+  }
+}
+
+//General Styles
+
+body {
+  font-family: $font;
+  font-size: 14px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-button{
+
+  border:none;
+  border-radius: 0;
+}
+
+.btn-primary{
+  background-color: $light;
+}
+
+.btn-success{
+  background-color: #41ac42;
+}
+
+.bold-text{
+  font-weight: bold;
+}
+
+
+//NAVBAR STYLES
+
+.custom-navbar{
+  background-color: rgba(0, 183, 255, 0);
+  border: none;
+  border-radius: 0;
+  color: $lighter;
+  font-family: $font2;
+
+  .navbar-brand{
+    color: $lighter;
+  }
+}
+
+.custom-navbar.scrolled{
+  background-color: whitesmoke;
+}
+
+.custom-button-login {
+  @include generateButton($utility2);
+}
+
+.custom-button-register {
+  @include generateButton($utility1);
+}
+
+
+.jumbotron{
+  background: url("../img/header.jpg") center/cover no-repeat;
+  height: 450px;
+  padding: 80px 40px;
+
+  .header-left-box{
+    border: 3px solid $lighter;
+    font-family: $font2;
+    color: $light;
+    i{
+      margin: 0 5px;
+      color: $utility1;
+    }
+  }
+  .header-right-box{
+    p{
+      color: $light;
+
+      i{
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
+.custom-modal{
+  border-radius: 0;
+  font-family: $font2;
+  .modal-header{
+    background-color: $lighter;
+    color: $darker;
+    h4{
+      //font-weight: bold;
+      font-family: $font2;
+      font-size: 18px;
+    }
+
+  }
+  .modal-body{
+    .row{
+      margin-top: 10px;
+      input{
+        border-radius: 0;
+      }
+      p{
+        //font-weight: bold;
+        color: $dark;
+        font-size: 17px;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+.emphasis-text{
+  text-decoration: underline;
+}

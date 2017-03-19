@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var Games = require('../models/games')
+var Games = require('../models/games');
 
 
 router.use(bodyParser.json());
