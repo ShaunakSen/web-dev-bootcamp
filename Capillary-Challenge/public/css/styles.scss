@@ -138,7 +138,9 @@ a:hover {
   border-bottom: 3px solid $utility2;
 }
 
+
 .games-details-card {
+  margin-left: 20px;
   margin-top: 20px;
   font-family: $font2;
   border: 3px solid $utility3;
@@ -166,6 +168,17 @@ a:hover {
     }
     .progress-bar{
       background-color: $utility2;
+    }
+  }
+}
+
+.pagination{
+  li{
+    a{
+      color: $utility1;
+      font-weight: bold;
+      font-family: $font;
+      cursor: pointer;
     }
   }
 }

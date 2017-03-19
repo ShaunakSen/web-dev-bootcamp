@@ -10,10 +10,13 @@
 
 
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-1 games-details-card" ng-repeat="game in gamesData">
+        <div class="col-sm-5 games-details-card" ng-repeat="game in gamesData.slice(startingIndex, endIndex) track by $index">
             <div class="row title-header">
-                <div class="col-xs-12">
+                <div class="col-xs-11">
                     <h4>{{game.title}}</h4>
+                </div>
+                <div class="col-xs-1">
+                    <i class="fa fa-star" ng-if="game.editors_choice === 'Y'"></i>
                 </div>
             </div>
             <div class="row games-details">
@@ -41,8 +44,16 @@
             </div>
         </div>
     </div>
-    <br><br><br><br><br>
+    <br><br>
 
+    <div class="row text-center">
+        <ul class="pagination">
+            <li ng-repeat="i in generateArray(10) track by $index" ng-class="{'active': ($index+1)==pageNumber}">
+                <a ng-click="nextPage($index+1)" >{{$index+1}}</a>
+            </li>
+
+        </ul>
+    </div>
 </div>
 
 <% include ./partials/footer.ejs %>
