@@ -1,4 +1,3 @@
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -8,13 +7,16 @@ var expressSession = require('express-session');
 var flash = require('connect-flash');
 var cors = require('cors');
 var User = require('./models/user');
+var Games = require('./models/games');
+var request = require('request');
+var fs = require('fs');
 
 
 var indexRoutes = require('./routes/index');
 
 var app = express();
 
-mongoose.connect("mongodb://localhost/capillary");
+mongoose.connect("mongodb://localhost/test_cap");
 
 
 // To parse form data
@@ -63,6 +65,51 @@ app.use(function (req, res, next) {
 // use the routes
 
 app.use(indexRoutes);
+
+// Get the data
+
+request.get('http://hck.re/fGVUJw', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        var csv = body;
+        console.log(typeof csv);
+        var lineList = csv.split('\n');
+        lineList.shift(); // Shift the headings off the list of records.
+        seed(lineList);
+    }
+});
+
+
+function seed(lineList) {
+    Games.remove({}, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            var allDocs = [];
+            while (lineList.length != 1) {
+                var firstLine = lineList.shift();
+                var values = firstLine.split(',');
+                var doc = {};
+                // console.log(values);
+                doc.title = values[0];
+                doc.platform = values[1];
+                doc.score = values[2];
+                doc.genre = values[3];
+                doc.editors_choice = values[4];
+                allDocs.push(doc);
+            }
+
+            console.log(allDocs);
+            Games.insertMany(allDocs, function (err, docs) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log(allDocs)
+                }
+            });
+        }
+    })
+}
+
 
 
 app.listen(8000, function () {
