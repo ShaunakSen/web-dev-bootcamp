@@ -9,6 +9,7 @@ $darker: #343435;
 $utility1: #5660ff;
 $utility2: #7bcb5d;
 $utility3: #7F2CCB;
+$utility4: #c06060;
 
 //Font
 
@@ -62,6 +63,11 @@ a:hover {
   color: inherit;
 }
 
+.welcome-message{
+  font-size: 1.1em;
+  margin-top: 2px;
+}
+
 .custom-button {
 
   border: none;
@@ -104,6 +110,10 @@ a:hover {
 
 .custom-button-register {
   @include generateButton($utility1);
+}
+
+.custom-button-logout {
+  @include generateButton($utility4);
 }
 
 .jumbotron {
@@ -187,8 +197,7 @@ a:hover {
   border-radius: 0;
   font-family: $font2;
   .modal-header {
-    background-color: $lighter;
-    color: $darker;
+    background-color: $utility2;
     h4 {
       //font-weight: bold;
       font-family: $font2;
@@ -212,6 +221,23 @@ a:hover {
   }
 }
 
+#registration-modal{
+  .modal-header{
+    background-color: $utility1;
+  }
+  .custom-input{
+    padding: 7px;
+    font-family: $font2;
+    border: 2px solid $utility1;
+    transition: all 0.5s;
+  }
+  .custom-input:focus {
+    outline: none;
+    border: 2px solid $dark;
+
+  }
+}
+
 .emphasis-text {
   text-decoration: underline;
 }
@@ -229,4 +255,8 @@ a:hover {
   outline: none;
   border: 2px solid $dark;
 
+}
+
+.custom-button-register-2{
+  background-color: $utility1;
 }

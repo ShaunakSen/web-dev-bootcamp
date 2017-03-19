@@ -3,3 +3,6 @@
 3. Build up the API
 
 6.stars as well
+7.complete auth
+8. flash msgs
+9. csv

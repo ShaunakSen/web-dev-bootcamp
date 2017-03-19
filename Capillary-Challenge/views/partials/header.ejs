@@ -24,14 +24,26 @@
             <a class="navbar-brand">Capillary Full Stack Challenge</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <div class="navbar-right" style="padding: 10px; width: 20%">
+            <div class="navbar-right" style="padding: 10px; width: 25%">
                 <div class="row">
-                    <div class="col-xs-6 custom-button-login">
+                    <% if(!currentUser){ %>
+                    <div class="col-xs-6 custom-button-login" data-toggle="modal" data-target="#login-modal">
                         <i class="fa fa-sign-in"></i><span>Login</span>
                     </div>
-                    <div class="col-xs-6 custom-button-register">
+                    <div class="col-xs-6 custom-button-register"  data-toggle="modal" data-target="#registration-modal">
                         <i class="fa fa-envelope"></i><span>Register</span>
                     </div>
+
+                    <% } else { %>
+                    <div class="col-xs-6 welcome-message">
+                        <p>Hello <%= currentUser.full_name %></p>
+                    </div>
+                    <div class="col-xs-6 custom-button-logout">
+                        <i class="fa fa-sign-in"></i><span><a href="/logout">Logout</a></span>
+                    </div>
+                    <% } %>
+
+
                 </div>
             </div>
         </div><!--/.navbar-collapse -->
@@ -66,4 +78,24 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <% if (error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <%= error %>
+    </div>
+    <% } %>
+
+    <% if (success && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <%= success %>
+    </div>
+    <% } %>
 </div>
