@@ -3,7 +3,6 @@
 $lighter: #e9e2f5;
 $light: #d5cee1;
 
-
 $dark: #4e4d4f;
 $darker: #343435;
 
@@ -63,41 +62,40 @@ a:hover {
   color: inherit;
 }
 
-.custom-button{
+.custom-button {
 
-  border:none;
+  border: none;
   border-radius: 0;
 }
 
-.btn-primary{
+.btn-primary {
   background-color: $light;
 }
 
-.btn-success{
+.btn-success {
   background-color: #41ac42;
 }
 
-.bold-text{
+.bold-text {
   font-weight: bold;
 }
 
-
 //NAVBAR STYLES
 
-.custom-navbar{
+.custom-navbar {
   background-color: rgba(0, 183, 255, 0);
   border: none;
   border-radius: 0;
   color: $lighter;
   font-family: $font2;
 
-  .navbar-brand{
+  .navbar-brand {
     color: $lighter;
   }
 }
 
-.custom-navbar.scrolled{
-  background-color: whitesmoke;
+.custom-navbar.scrolled {
+  background-color: $dark;
 }
 
 .custom-button-login {
@@ -108,52 +106,83 @@ a:hover {
   @include generateButton($utility1);
 }
 
-
-.jumbotron{
+.jumbotron {
   background: url("../img/header.jpg") center/cover no-repeat;
   height: auto;
   padding: 80px 40px;
 
-  .header-left-box{
+  .header-left-box {
     border: 3px solid $lighter;
     font-family: $font2;
     color: $light;
-    i{
+    i {
       margin: 0 5px;
       color: $utility1;
     }
   }
-  .header-right-box{
-    p{
+  .header-right-box {
+    p {
       color: $light;
 
-      i{
+      i {
         margin: 0 5px;
       }
     }
   }
 }
 
-.custom-modal{
+.games-details-header{
+  font-weight: bolder;
+  font-family: $font;
+  color: $utility2;
+  border-bottom: 3px solid $utility2;
+}
+
+.games-details-card {
+  font-family: $font2;
+  border: 3px solid $utility3;
+  .emphasis-text {
+    color: $utility1;
+    font-weight: bold;
+  }
+  .title-header {
+    background-color: $utility3;
+    color: $lighter;
+    font-weight: bold;
+    padding: 10px 10px;
+  }
+  .games-details {
+    padding: 10px 10px;
+    border-bottom: 1px solid $utility3;
+  }
+  .game-score{
+    padding: 10px 10px;
+    p{
+      color: $utility1;
+    }
+  }
+}
+
+.custom-modal {
   border-radius: 0;
   font-family: $font2;
-  .modal-header{
+  .modal-header {
     background-color: $lighter;
     color: $darker;
-    h4{
+    h4 {
       //font-weight: bold;
       font-family: $font2;
       font-size: 18px;
     }
 
   }
-  .modal-body{
-    .row{
+  .modal-body {
+    .row {
       margin-top: 10px;
-      input{
+      input {
         border-radius: 0;
       }
-      p{
+      p {
         //font-weight: bold;
         color: $dark;
         font-size: 17px;
@@ -162,6 +191,7 @@ a:hover {
     }
   }
 }
-.emphasis-text{
+
+.emphasis-text {
   text-decoration: underline;
 }
