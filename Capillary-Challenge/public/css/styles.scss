@@ -215,3 +215,18 @@ a:hover {
 .emphasis-text {
   text-decoration: underline;
 }
+
+
+.custom-input {
+  padding: 7px;
+  font-family: $font2;
+  border: 2px solid $utility2;
+  transition: all 0.5s;
+
+}
+
+.custom-input:focus {
+  outline: none;
+  border: 2px solid $dark;
+
+}

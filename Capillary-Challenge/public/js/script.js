@@ -8,10 +8,22 @@ myApp.controller('MainController', ['$scope', '$window', '$http', function ($sco
     
     $scope.gamesData = $window.gameInfo;
 
+    
+    $scope.searchText = "";
 
     $scope.startingIndex = 0;
     $scope.endIndex = 10;
     $scope.pageNumber = 1;
+
+
+
+    $scope.selectTypes = ['score', 'name'];
+    $scope.selectType = "";
+    $scope.sortReverse = false;
+    $scope.selectOrder = "";
+    $scope.changeOrder = function () {
+        $scope.sortReverse = $scope.selectOrder == "descending";
+    };
 
     $scope.nextPage = function (pageNumber) {
         $scope.pageNumber = pageNumber;
