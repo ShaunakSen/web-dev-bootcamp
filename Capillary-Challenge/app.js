@@ -16,7 +16,7 @@ var indexRoutes = require('./routes/index');
 
 var app = express();
 
-mongoose.connect("mongodb://localhost/test_cap");
+mongoose.connect("mongodb://localhost/shaunak-capillary-db");
 
 
 // To parse form data
@@ -66,17 +66,29 @@ app.use(function (req, res, next) {
 
 app.use(indexRoutes);
 
-// Get the data
 
-request.get('http://hck.re/fGVUJw', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        var csv = body;
-        console.log(typeof csv);
-        var lineList = csv.split('\n');
-        lineList.shift(); // Shift the headings off the list of records.
-        seed(lineList);
+// Get the data
+Games.count({}, function (err, count) {
+    if(count != 99){
+        // Remove and seed the database
+
+        request.get('http://hck.re/fGVUJw', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var csv = body;
+                console.log(typeof csv);
+                var lineList = csv.split('\n');
+                lineList.shift(); // Shift the headings off the list of records.
+                seed(lineList);
+            }
+        });
+
+
+    } else {
+        console.log("No need to seed!")
     }
 });
+
+
 
 
 function seed(lineList) {
