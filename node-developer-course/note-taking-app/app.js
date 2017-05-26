@@ -32,14 +32,21 @@ console.log("Yargs:", argv);
 
 var command = process.argv[2];
 
-if(command === "add"){
-  notes.addNote(argv.title, argv.body);
+if (command === "add") {
+  var addedNote = notes.addNote(argv.title, argv.body);
+  if (_.isUndefined(addedNote)) {
+    console.log("Did not add note");
+  } else {
+    console.log(`Note with title: ${addedNote.title} was successfully added!`);
+  }
 } else if (command === "list") {
   notes.getAll();
 } else if (command === "read") {
   notes.getNote(argv.title);
 } else if (command === "remove") {
-  notes.removeNote(argv.title);
+  var noteRemoved = notes.removeNote(argv.title);
+  var message = noteRemoved ? "Note was Removed" : "Note was not found";
+  console.log(message);
 } else {
   console.log("Command not recognized");
 }
